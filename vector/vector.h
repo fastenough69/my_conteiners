@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <memory>
+#include <initializer_list>
 
 
 template <typename T>
@@ -11,7 +12,7 @@ class Vector {
         default_cpacity=8,
     };
 
-    class Item{
+    class Item {
         Vector<T>* curr {nullptr};
         int index {-1};
     public:
@@ -33,11 +34,13 @@ public:
     Vector(T* ar, unsigned int sz);
     Vector(std::unique_ptr<T[]> ar, int sz);
     Vector(int sz, T value);
+    Vector(std::initializer_list<T> args);
     Vector<T>& operator=(const Vector<T>& right);
     Vector<T>& operator=(Vector<T>&& right) noexcept;
     ~Vector();
     T* get_data();
     int get_size();
+    int get_capacity() const;
     void push_back(T value);
     void remove(int index);
     void emplace(int pos, T value);

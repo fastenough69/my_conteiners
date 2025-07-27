@@ -1,0 +1,5 @@
+.vscode/
+vectordSYM
+a.o*
+vector
+# .vscode/settings.*
