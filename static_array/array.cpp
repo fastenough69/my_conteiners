@@ -1,8 +1,11 @@
 #include "array.hpp"
 
 template <typename T, int sz>
-Array<T, sz>::Array(): data{new T[size]}
+Array<T, sz>::Array()
 {  
+    size = sz;
+    data = new T[size];
+    
     for(int i{}; i < size; i++)
     {
         data[i] = T{};

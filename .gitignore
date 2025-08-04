@@ -3,3 +3,4 @@ vectordSYM
 a.o*
 vector
 *.json
+array.*
