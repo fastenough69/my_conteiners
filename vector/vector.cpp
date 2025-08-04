@@ -178,7 +178,7 @@ Vector<T>::Item::Item(Vector<T>* obj, int idx): curr{obj}, index{idx}
     {  }
 
 template <typename T>
-Vector<T>::Item::operator int() const
+Vector<T>::Item::operator T() const
 {
     if(index >= curr->size || index < 0)
         throw "Vector index out of range\n";
@@ -187,7 +187,7 @@ Vector<T>::Item::operator int() const
 }
 
 template <typename T>
-int Vector<T>::Item::operator=(int right) const
+T Vector<T>::Item::operator=(T right) const
 {
     int old_size = curr->size;
     if(index >= curr->capacity)

@@ -17,8 +17,8 @@ class Vector {
         int index {-1};
     public:
         Item(Vector<T>* obj, int idx);
-        operator int() const;
-        int operator=(int right) const;
+        operator T() const;
+        T operator=(T right) const;
     };
 
     T* data;
