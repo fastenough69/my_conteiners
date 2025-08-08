@@ -1,6 +1,6 @@
 .vscode
-vectordSYM
+*.dSYM
 a.o*
 vector
 *.json
-array.*
+# array.*
