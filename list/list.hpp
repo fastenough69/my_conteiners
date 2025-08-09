@@ -18,9 +18,20 @@ class List {
     shared_ptr<Node> head{nullptr};
     shared_ptr<Node> tail{nullptr};
     int size = 0;
+
+    class Prox {
+        List* obj;
+        int index;
+
+    public:
+        Prox(List* copy, int idx);
+        operator T() const;
+        T operator=(T right);
+    };
+
 public:
     List();
-    List(std::initializer_list<T> args);
+    List(initializer_list<T> args);
     List(const List<T>& right);
     List(List<T>&& right) noexcept;
     List& operator=(const List<T>& right);
@@ -28,6 +39,11 @@ public:
     void swap(List& obj) noexcept;
     int get_size() const;
     void push_back(T val);
+    void push_front(T val);
+    void print_all() const;
+    Prox operator[](int index);
+    void pop_back();
+    void pop_front();
     ~List() = default;
 };  
 

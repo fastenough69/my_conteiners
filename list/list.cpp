@@ -66,19 +66,36 @@ void List<T>::push_back(T val)
     {
         head = new_node;
         tail = new_node;
-        new_node->prev = head;
     }
     else 
     {
         new_node->prev = tail;
-        head->next = new_node;
+        tail->next = new_node;
         tail = new_node;
     }
     size++;
 }
 
 template <typename T>
-List<T>::List(std::initializer_list<T> args)
+void List<T>::push_front(T val)
+{
+    auto new_node = make_shared<Node>(val);
+    if(!head)
+    {
+        head = new_node;
+        tail = new_node;
+    } 
+    else 
+    {
+        new_node->next = head;
+        head->prev = new_node;
+        head = new_node;
+    }
+    size++;
+}
+
+template <typename T>
+List<T>::List(initializer_list<T> args)
 {
     for(auto i = args.begin(); i != args.end(); i++)
     {
@@ -86,11 +103,93 @@ List<T>::List(std::initializer_list<T> args)
     }
 }
 
+template <typename T>
+int List<T>::get_size() const
+{
+    return size;
+}
+
+template <typename T>
+List<T>::Prox::Prox(List* copy, int idx): obj{copy}, index{idx}
+    {   }
+
+template <typename T>
+typename List<T>::Prox List<T>::operator[](int index)
+{
+    return Prox(this, index);
+}
+
+
+template <typename T>
+List<T>::Prox::operator T() const
+{
+    if(index < 0 || index > obj->size - 1)
+        throw "Index out of range\n";
+
+    auto curr = obj->head;
+    for(int i{}; i < index; i++)
+        curr = curr->next;
+
+    return curr->value;
+}
+
+template <typename T>
+T List<T>::Prox::operator=(T right)
+{
+    if(index < 0 || index > obj->size - 1)
+        throw "Index out of range\n";
+
+    auto curr = obj->head;
+    for(int i{}; i < index; i++)
+        curr = curr->next;
+
+    curr->value = right;
+    return curr->value;
+}
+
+template <typename T>
+void List<T>::pop_back()
+{
+    tail = tail->prev;
+    tail->next = nullptr;
+    size--;
+}
+
+template <typename T>
+void List<T>::pop_front()
+{
+    head = head->next;
+    head->prev = nullptr;
+    size--;
+}
+
+template <typename T>
+void List<T>::print_all() const
+{
+    auto curr = head;
+    while(curr != nullptr)
+    {
+        cout << curr->value << ' ';
+        curr = curr->next;
+    }
+}
+
 int main(void)
 {
     List<int> lst{};
     List<int> lst1{1, 2, 3};
+    // lst1.print_all();
     lst.push_back(10);
     lst.push_back(20);
+    lst.push_back(30);
+    lst.push_front(9);
+    lst[0] = 5;
+    lst.pop_back();
+    lst.pop_front();
+
+    for(int i{}; i < lst.get_size(); i++)
+        cout << lst[i] << ' ';
+
+    
     return 0;
 }
