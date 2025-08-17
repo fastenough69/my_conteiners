@@ -6,3 +6,4 @@ vector
 # array.*
 list
 new_list
+*.o
