@@ -20,6 +20,14 @@ void Vector<T>::new_size_capacity(int new_size)
 }
 
 template <typename T>
+void Vector<T>::swap(Vector& obj) noexcept
+{
+    std::swap(data, obj.data);
+    std::swap(size, obj.size);
+    std::swap(capacity, obj.capacity);
+}
+
+template <typename T>
 Vector<T>::Vector(unsigned int sz): Vector()
 {
     if(sz >= capacity)
@@ -43,6 +51,7 @@ Vector<T>::Vector(const Vector& right)
     size = right.size;
     capacity = right.capacity;
     
+    data = nullptr;
     data = new T[capacity];
     
     for(int i{}; i < size; i++)
@@ -52,15 +61,8 @@ Vector<T>::Vector(const Vector& right)
 template <typename T>
 Vector<T>& Vector<T>::operator=(const Vector<T>& right)
 {
-    if(this == &right)
-        return *this;
-    
-    if(size < right.size)
-        new_size_capacity(right.size);
-
-    for(int i{}; i < size; i++)
-        data[i] = right.data[i];
-
+    Vector copy{right};
+    swap(copy);
     return *this;
 }
 
@@ -73,6 +75,9 @@ Vector<T>::~Vector()
 template <typename T>
 Vector<T>::Vector(Vector<T>&& right) noexcept
 {
+    if(this == &right)
+        return;
+
     data = nullptr;
     data = right.data;
     size = right.size;
@@ -108,13 +113,8 @@ Vector<T>::Vector(int sz, T value): Vector(sz)
 template <typename T>
 Vector<T>& Vector<T>::operator=(Vector<T>&& right) noexcept
 {
-    if(this == &right)
-        return *this;
-    data = nullptr;
-    data = right.data;
-    size = right.size;
-    capacity = right.capacity;
-    right.data = nullptr;
+    Vector copy{std::move(right)};
+    swap(copy);
     return *this;
 }
 
@@ -187,7 +187,7 @@ Vector<T>::Item::operator T() const
 }
 
 template <typename T>
-T Vector<T>::Item::operator=(T right) const
+T Vector<T>::Item::operator=(T right)
 {
     int old_size = curr->size;
     if(index >= curr->capacity)
@@ -252,7 +252,7 @@ int Vector<T>::get_capacity() const
 
 //     std::cout << std::endl;
 
-//     Vector<int> v9 {10, 1};
+//     Vector<int> v9 (10, 1);
 //     v9.insert(4, 3, 10);
 //     std::cout << "vec v9: ";
 //     for(int i{}; i < v9.get_size(); i++)

@@ -141,29 +141,29 @@ typename Array<T, sz>::Prox Array<T, sz>::operator[](int index)
     return Prox(this, index);
 }
 
-int main(void)
-{
-    Array<int, 15> ar {1, 2, 3, 4, 5};
-    Array<int, 15> ar1 {ar};
-    Array<int, 15> ar2 = ar;
+// int main(void)
+// {
+//     Array<int, 15> ar {1, 2, 3, 4, 5};
+//     Array<int, 15> ar1 {ar};
+//     Array<int, 15> ar2 = ar;
 
-    Array<int, 15> ar3(std::move(ar2));
-    Array<int, 15> ar4 = std::move(ar2);
+//     Array<int, 15> ar3(std::move(ar2));
+//     Array<int, 15> ar4 = std::move(ar2);
 
-    std::cout << ar.front() << ' ' << ar.back() << std::endl;
+//     std::cout << ar.front() << ' ' << ar.back() << std::endl;
 
-    int size = ar.get_size();
-    int* ptr = ar.get_data();
-    for(int i{}; i < size; i++)
-        std::cout << ptr[i] << ' ';
+//     int size = ar.get_size();
+//     int* ptr = ar.get_data();
+//     for(int i{}; i < size; i++)
+//         std::cout << ptr[i] << ' ';
 
-    std::cout << std::endl;
-    // ar.fill(10);
-    // for(int i{}; i < size; i++)
-    //     std::cout << ptr[i] << ' ';
-    ar[14] = 1000;
-    for(int i{}; i < size; i++)
-        std::cout << ar[i] << ' ';
+//     std::cout << std::endl;
+//     // ar.fill(10);
+//     // for(int i{}; i < size; i++)
+//     //     std::cout << ptr[i] << ' ';
+//     ar[14] = 1000;
+//     for(int i{}; i < size; i++)
+//         std::cout << ar[i] << ' ';
 
-    return 0;
-}
+//     return 0;
+// }

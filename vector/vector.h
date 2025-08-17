@@ -18,13 +18,15 @@ class Vector {
     public:
         Item(Vector<T>* obj, int idx);
         operator T() const;
-        T operator=(T right) const;
+        T operator=(T right);
     };
 
     T* data;
     int size{0};
     int capacity;
+    
     void new_size_capacity(int new_size);
+    void swap(Vector& obj) noexcept;
 
 public:
     Vector();
