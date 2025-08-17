@@ -1,9 +1,8 @@
 .vscode
 *.dSYM
 a.o*
-vector
 *.json
 # array.*
-list
+
 new_list
 *.o
