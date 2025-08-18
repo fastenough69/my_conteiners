@@ -187,9 +187,10 @@ public:
 
     void emplace(int pos, T value)
     {
-        for(int i{size - 1}; i < pos; i--)
+        for(int i{size - 1}; i > pos; i--)
             data[i] = data[i - 1];
 
+        size++;
         data[pos] = value;
     }
 
